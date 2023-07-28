@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Reports</title>
+    <link rel="stylesheet" href="navbar.css" />
+    <style>
+      #container {
+        text-align: center;
+        border: 2px solid black;
+      }
+
+      form {
+        margin: auto;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        gap: 10px;
+        padding: 10px;
+        height: 500px;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      label {
+        text-align: start;
+        margin-left: 5px;
+        font-weight: 600;
+        margin-bottom: -8px;
+      }
+
+      input,
+      select {
+        margin: auto;
+        width: 80%;
+        margin-left: 2px;
+        height: 25px;
+      }
+
+      #btn {
+        width: 50%;
+        margin: auto;
+        cursor: pointer;
+        padding: 2px;
+        font-size: 20px;
+      }
+
+      #btn:hover {
+        background-color: teal;
+        color: whitesmoke;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <p><a href="./index.html">Fill Details</a></p>
+      <p><a href="./displayReport.html">View / Remove Students Detail </a></p>
+    </nav>
+
+    <div id="container">
+      <h1>Fill Student Details</h1>
+
+      <form id="form" action="">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          type="text"
+          name="name"
+          placeholder=" Write Student Name"
+        />
+        <label for="course">Course</label>
+        <select name="course" id="course">
+          <option value="">Select Course</option>
+          <option value="Full Stack Web Development">
+            Full Stack Web Development
+          </option>
+          <option value="Android Development">Android Development</option>
+          <option value="Data Sciece for Machine Learning">
+            Data Sciece for Machine Learning
+          </option>
+          <option value="Artificial Intelligence and Machine Learning">
+            Artificial Intelligence and Machine Learning
+          </option>
+          <option value="Data Analytics">Data Analytics</option>
+          <option value="Digital Marketing">Digital Marketing</option>
+          <option value="Cloud Computing">Cloud Computing</option>
+          <option value="CybersecuritU">Cybersecurity</option>
+        </select>
+        <label for="unit">Unit</label>
+        <select name="unit" id="unit">
+          <option value>Select Unit</option>
+          <option value="1">Unit 1</option>
+          <option value="2">Unit 2</option>
+          <option value="3">Unit 3</option>
+          <option value="4">Unit 4</option>
+          <option value="5">Unit 5</option>
+          <option value="MockInterview">Mock Interview</option>
+        </select>
+        <label for="progress">Progress</label>
+        <select name="progress" id="progress">
+          <option value="">Select Progress</option>
+          <option value="Completed">Completed</option>
+          <option value="On-going">On-going</option>
+          <option value="Dropped/Left">Dropped/Left</option>
+        </select>
+
+        <label for="imgurl">Student Image</label>
+        <input
+          type="url"
+          name="studentImage"
+          id="imgurl"
+          placeholder="Student Profile Image"
+        />
+
+        <button id="btn">Submit</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById("btn").addEventListener("click", save);
+      let studentData = JSON.parse(localStorage.getItem("studentData")) || [];
+
+      function save(e) {
+        e.preventDefault();
+        let obj = {
+          name: document.getElementById("name").value,
+          course: document.getElementById("course").value,
+          unit: document.getElementById("unit").value,
+          progress: document.getElementById("progress").value,
+          image: document.getElementById("imgurl").value,
+        };
+        studentData.push(obj);
+        localStorage.setItem("studentData", JSON.stringify(studentData));
+        console.log(studentData);
+        alert("Details Submitted");
+        window.location.reload();
+      }
+    </script>
+  </body>
+</html>

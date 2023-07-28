@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DisplayStudentReports</title>
+    <link rel="stylesheet" href="navbar.css" />
+    <style>
+      #container {
+        border: 2px solid teal;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-around;
+        padding: 10px;
+      }
+
+      .box {
+        border: 2px solid rgb(135, 128, 128);
+        width: 25%;
+        height: 380px;
+        padding: 10px;
+      }
+
+      .sImg {
+        border: 2px solid rgb(128, 147, 127);
+        width: 65%;
+        height: 40%;
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <p><a href="./index.html">Fill Details</a></p>
+      <p><a href="./displayReport.html">View / Remove Students Detail </a></p>
+    </nav>
+
+    <div id="container"></div>
+  </body>
+</html>
+
+<script>
+  let studentData = JSON.parse(localStorage.getItem("studentData"));
+
+  function displayData(studentData) {
+    studentData.map(function (e, index) {
+      let div = document.createElement("div");
+      div.setAttribute("class", "box");
+
+      let name = document.createElement("h3");
+      let course = document.createElement("h4");
+      let unit = document.createElement("h4");
+      let progress = document.createElement("h4");
+      let image = document.createElement("img");
+
+      name.innerText = "Name : " + e.name;
+      course.innerText = "Course : " + e.course;
+      unit.innerText = "Unit : " + e.unit;
+      progress.innerText = "Progress : " + e.progress;
+      image.src = e.image;
+      image.setAttribute("class", "sImg");
+
+      let remove = document.createElement("button");
+      remove.innerText = "Remove";
+      remove.addEventListener("click", removE);
+      function removE() {
+        studentData.splice(index, 1);
+        localStorage.setItem("studentData", JSON.stringify(studentData));
+        displayData(studentData);
+        window.location.reload();
+      }
+
+      div.append(image, name, course, unit, progress, remove);
+      document.getElementById("container").append(div);
+
+      // console.log(name, course, unit, progress, image);
+    });
+  }
+
+  displayData(studentData);
+</script>
